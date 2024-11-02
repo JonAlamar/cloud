@@ -8,6 +8,14 @@ provider "aws" {
   region = "us-east-1"
 }
 
-resource "random_string" "random" {
-  length = 10
+resource "aws_instance" "web" {
+  ami           = "<AMI>"
+  instance_type = "t2.micro"
+
+  subnet_id              = "<SUBNET>"
+  vpc_security_group_ids = ["<SECURITY_GROUP>"]
+
+  tags = {
+    "Identity" = "<IDENTITY>"
+  }
 }
