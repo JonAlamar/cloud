@@ -29,6 +29,12 @@ variable "public_subnets" {
   }
 }
 
+variable "environment" {
+  default     = "dev"
+  description = "Environment Type: dev, qa, or prod"
+  type        = string
+}
+
 variable "variables_sub_cidr" {
   default     = "10.0.202.0/24"
   description = "CIDR Block for the Variables Subnet"

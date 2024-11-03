@@ -4,7 +4,10 @@ provider "aws" {
 }
 
 locals {
-  vpc_name = "10.0.0.0/16"
+  vpc_name    = "10.0.0.0/16"
+  team        = "api_mgmt_dev"
+  application = "corp_api"
+  server_name = "ec2-${var.environment}-api-${var.variables_sub_az}"
 }
 
 #Retrieve the list of AZs in the current AWS region
@@ -158,7 +161,7 @@ resource "aws_subnet" "variables-subnet" {
   map_public_ip_on_launch = var.variables_sub_auto_ip
 
   tags = {
-    Name      = "sub-variables-us-east-1a"
+    Name      = "sub-variables-${var.variables_sub_az}"
     Terraform = "true"
   }
 }
