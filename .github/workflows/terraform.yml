@@ -34,9 +34,9 @@ jobs:
         run: terraform init
         working-directory: iac
 
-      - name: Select Terraform Workspace
-        run: terraform workspace select $TF_WORKSPACE
-        working-directory: iac
+      # - name: Select Terraform Workspace
+      #   run: terraform workspace select $TF_WORKSPACE
+      #   working-directory: iac
 
       - name: Terraform Plan
         run: terraform plan -out=tfplan
@@ -75,9 +75,9 @@ jobs:
         run: terraform init
         working-directory: iac
 
-      - name: Select Terraform Workspace
-        run: terraform workspace select $TF_WORKSPACE
-        working-directory: iac
+      # - name: Select Terraform Workspace
+      #   run: terraform workspace select $TF_WORKSPACE
+      #   working-directory: iac
 
       - name: Download Terraform Plan
         uses: actions/download-artifact@v4
