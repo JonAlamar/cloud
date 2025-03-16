@@ -6,8 +6,7 @@ on:
       - dev
       - master
     paths:
-      - '*.tf'
-      - 'iac/*'
+      - 'iac/**'  # Trigger only on changes in iac/ and its subdirectories
 
 jobs:
   plan:
@@ -33,18 +32,21 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
+        working-directory: iac
 
       - name: Select Terraform Workspace
         run: terraform workspace select $TF_WORKSPACE
+        working-directory: iac
 
       - name: Terraform Plan
         run: terraform plan -out=tfplan
+        working-directory: iac
 
       - name: Upload Terraform Plan
         uses: actions/upload-artifact@v3
         with:
           name: terraform-plan
-          path: tfplan
+          path: iac/tfplan
 
   apply:
     runs-on: ubuntu-latest
@@ -71,14 +73,18 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
+        working-directory: iac
 
       - name: Select Terraform Workspace
         run: terraform workspace select $TF_WORKSPACE
+        working-directory: iac
 
       - name: Download Terraform Plan
         uses: actions/download-artifact@v3
         with:
           name: terraform-plan
+          path: iac/
 
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
+        working-directory: iac
